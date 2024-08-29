@@ -132,6 +132,46 @@ TRIM()
     SELECT TRIM(BOTH ' ' FROM text_column)
     FROM table;
 
+RIGHT()
+
+    Description: Extracts a specified number of characters from the right side of a string, which can be useful when analyzing or isolating the ending portion of categorical strings or unstructured text.
+    Keywords/Indicators: "extract end", "last characters", "rightmost part of string".
+    
+    Syntax:
+
+    SELECT RIGHT(column_name, number_of_characters)
+    FROM table;
+
+LEFT()
+
+    Description: Extracts a specified number of characters from the left side of a string, useful for analyzing or isolating the beginning portion of categorical strings or unstructured text.
+    Keywords/Indicators: "extract start", "first characters", "leftmost part of string".
+    
+    Syntax:
+
+    SELECT LEFT(column_name, number_of_characters)
+    FROM table;
+
+COALESCE()
+
+    Description: Returns the first non-null value in a list, often used to handle missing or null values in categorical data or text fields, providing a default value when necessary.
+    Keywords/Indicators: "handle nulls", "replace null values", "default value".
+    
+    Syntax:
+
+SELECT COALESCE(column_name, 'Default Value')
+FROM table;
+
+REPLACE()
+
+    Description: Replaces all occurrences of a specified substring within a string with another substring. Useful for cleaning up or modifying text data.
+    Keywords/Indicators: "replace substring", "modify text", "string cleanup".
+    
+    Syntax:
+
+SELECT REPLACE(text_column, 'old_substring', 'new_substring')
+FROM table;
+
 CONCAT()
 
     Description: Combines two or more strings into one, useful for merging text data.
@@ -199,6 +239,10 @@ Key Points for Identifying the Correct Function
         SUBSTRING(): When extracting specific parts of a string.
         POSITION(): When locating a substring within a string.
         TRIM(): When cleaning up text by removing unwanted characters.
+        RIGHT(): When extracting the last few characters from a text string, such as suffixes or file extensions
+        LEFT(): When analyzing or extracting the first few characters from a text string, such as prefixes or initial letters
+        COALESCE(): When you need to replace null or missing values with a default value in categorical or text data
+        REPLACE(): When you need to substitute specific characters or words in a text column with different characters or words, such as replacing old names with new ones or correcting typos
         CONCAT(): When combining multiple text strings into one.
         SPLIT_PART(): When parsing text based on a delimiter.
         TO_TSVECTOR(): When preparing text for full-text search.
