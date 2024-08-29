@@ -1,0 +1,119 @@
+INNER JOIN
+
+    Description: Retrieves only the rows that have matching values in both tables. If a row in either table doesn’t have a match in the other table, it will not be included in the result set.
+    Keywords/Indicators: "only matching rows", "common records", "both tables".
+    
+    Syntax:
+
+    SELECT columns
+    FROM table1
+    INNER JOIN table2 ON table1.column = table2.column;
+
+LEFT JOIN (or LEFT OUTER JOIN)
+
+    Description: Retrieves all rows from the left table, and the matched rows from the right table. If there is no match, NULL values are returned for columns from the right table.
+    Keywords/Indicators: "all rows from the left table", "include unmatched rows from the left", "left table's rows regardless of matching".
+    
+    Syntax:
+
+    SELECT columns
+    FROM table1
+    LEFT JOIN table2 ON table1.column = table2.column;
+
+RIGHT JOIN (or RIGHT OUTER JOIN)
+
+    Description: Retrieves all rows from the right table, and the matched rows from the left table. If there is no match, NULL values are returned for columns from the left table.
+    Keywords/Indicators: "all rows from the right table", "include unmatched rows from the right", "right table's rows regardless of matching".
+    
+    Syntax:
+
+    SELECT columns
+    FROM table1
+    RIGHT JOIN table2 ON table1.column = table2.column;
+
+FULL JOIN (or FULL OUTER JOIN)
+
+    Description: Retrieves all rows when there is a match in either the left or right table. It combines the result of both LEFT JOIN and RIGHT JOIN.
+    Keywords/Indicators: "all rows from both tables", "include unmatched rows from both", "union of LEFT JOIN and RIGHT JOIN".
+    
+    Syntax:
+
+    SELECT columns
+    FROM table1
+    FULL JOIN table2 ON table1.column = table2.column;
+
+CROSS JOIN
+
+    Description: Produces a Cartesian product of the two tables, meaning every row from the first table is combined with every row from the second table.
+    Keywords/Indicators: "Cartesian product", "all combinations of rows", "multiply tables".
+    
+    Syntax:
+
+    SELECT columns
+    FROM table1
+    CROSS JOIN table2;
+
+SELF JOIN
+
+    Description: Joins a table with itself. This is useful for finding relationships between rows in the same table.
+    Keywords/Indicators: "compare rows within the same table", "self-reference", "rows in relation to themselves".
+    
+    Syntax:
+
+        SELECT a.columns, b.columns
+        FROM table1 a
+        INNER JOIN table1 b ON a.column = b.column;
+
+Set Operations in PostgreSQL
+
+    UNION
+        Description: Combines the result sets of two SELECT statements and removes duplicate rows.
+        Keywords/Indicators: "combine results", "remove duplicates", "union of queries".
+        
+        Syntax:
+
+    SELECT columns FROM table1
+    UNION
+    SELECT columns FROM table2;
+
+UNION ALL
+
+    Description: Combines the result sets of two SELECT statements, but includes all duplicates.
+    Keywords/Indicators: "combine results", "keep duplicates", "all records from both queries".
+    
+    Syntax:
+
+    SELECT columns FROM table1
+    UNION ALL
+    SELECT columns FROM table2;
+
+INTERSECT
+
+    Description: Returns the common rows that appear in both result sets of two SELECT statements.
+    Keywords/Indicators: "common records", "intersection of queries", "records in both".
+    
+    Syntax:
+
+        SELECT columns FROM table1
+        INTERSECT
+        SELECT columns FROM table2;
+
+Key Points for Identifying the Correct Operation
+
+    INNER JOIN: Look for a need to filter only matching rows between tables.
+    
+    LEFT JOIN: Look for requirements to keep all rows from the left table, even if they don't match the right table.
+    
+    RIGHT JOIN: Look for requirements to keep all rows from the right table, even if they don't match the left table.
+    
+    FULL JOIN: Look for requirements to combine all rows from both tables, keeping all non-matching rows from both.
+    
+    CROSS JOIN: Look for scenarios where all possible combinations of rows from two tables are needed.
+    
+    SELF JOIN: Look for situations where a table needs to be joined to itself, typically for hierarchical or relational data within the same table.
+    
+    UNION: Look for scenarios where results from two queries need to be combined without duplicates.
+    
+    UNION ALL: Look for scenarios where results from two queries need to be combined with duplicates included.
+    
+    INTERSECT: Look for scenarios where only the rows that are common between two queries should be returned.
