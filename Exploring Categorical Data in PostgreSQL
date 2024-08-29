@@ -1,0 +1,206 @@
+Functions for Exploring Categorical Data in PostgreSQL
+
+COUNT()
+        
+        Description: Counts the number of rows that match a specific condition or belong to a certain category.
+        Keywords/Indicators: "total number", "frequency", "count occurrences".
+        
+        Syntax:
+
+    SELECT category_column, COUNT(*)
+    FROM table
+    GROUP BY category_column;
+
+GROUP BY
+
+    Description: Groups rows that have the same values in specified columns into summary rows.
+    Keywords/Indicators: "group data", "aggregate by category", "summarize by".
+    
+    Syntax:
+
+    SELECT category_column, aggregate_function(column)
+    FROM table
+    GROUP BY category_column;
+
+DISTINCT
+
+    Description: Returns only distinct (unique) values in the result set, often used to find the number of unique categories.
+    Keywords/Indicators: "unique values", "remove duplicates", "distinct categories".
+    
+    Syntax:
+
+    SELECT DISTINCT category_column
+    FROM table;
+
+CASE
+
+    Description: Provides conditional logic within SQL queries, useful for creating new categorical variables or recoding existing ones.
+    Keywords/Indicators: "conditional logic", "if-else", "categorize conditionally".
+    
+    Syntax:
+
+    SELECT category_column,
+           CASE 
+              WHEN condition1 THEN 'Category1'
+              WHEN condition2 THEN 'Category2'
+              ELSE 'Other'
+           END as new_category
+    FROM table;
+
+MODE()
+
+    Description: Returns the most frequent value in a column, which can help identify the mode of a categorical dataset.
+    Keywords/Indicators: "most frequent", "mode", "common category".
+    
+    Syntax:
+
+    SELECT MODE() WITHIN GROUP (ORDER BY category_column) AS mode_category
+    FROM table;
+
+PERCENTILE_CONT()
+
+    Description: Computes a value based on a specified percentile within a sorted dataset, useful for understanding the distribution of categorical data.
+    Keywords/Indicators: "percentile", "cumulative distribution", "categorical distribution".
+    
+    Syntax:
+
+    SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY column)
+    FROM table;
+
+CROSSTAB() (requires the tablefunc extension)
+
+    Description: Converts categorical data into a matrix (or pivot table) format, useful for contingency tables.
+    Keywords/Indicators: "pivot table", "contingency table", "cross-tabulation".
+    
+    Syntax:
+
+        SELECT * FROM CROSSTAB(
+           'SELECT category1, category2, COUNT(*) 
+            FROM table 
+            GROUP BY category1, category2'
+        ) AS ct(row_name text, category1_name text, category2_name text, ...);
+
+Functions for Exploring Unstructured Text in PostgreSQL
+
+LOWER() / UPPER()
+        
+        Description: Converts text to lowercase or uppercase, respectively, useful for standardizing text data.
+        Keywords/Indicators: "standardize text", "case-insensitive comparison", "convert to lowercase/uppercase".
+        
+        Syntax:
+
+    SELECT LOWER(text_column), UPPER(text_column)
+    FROM table;
+
+LENGTH()
+
+    Description: Returns the number of characters in a text string, useful for analyzing the length of unstructured text.
+    Keywords/Indicators: "text length", "number of characters", "length of string".
+    
+    Syntax:
+
+    SELECT LENGTH(text_column)
+    FROM table;
+
+SUBSTRING()
+
+    Description: Extracts a portion of a string, useful for isolating specific parts of unstructured text.
+    Keywords/Indicators: "extract part of text", "substring", "portion of string".
+    
+    Syntax:
+
+    SELECT SUBSTRING(text_column FROM start_position FOR length)
+    FROM table;
+
+POSITION()
+
+    Description: Finds the position of a substring within a string, helpful for locating specific text within unstructured data.
+    Keywords/Indicators: "find substring", "location in text", "position of text".
+    
+    Syntax:
+
+    SELECT POSITION('substring' IN text_column)
+    FROM table;
+
+TRIM()
+
+    Description: Removes specified characters from the beginning and end of a string, commonly used to clean up whitespace.
+    Keywords/Indicators: "remove whitespace", "clean text", "trim characters".
+    
+    Syntax:
+
+    SELECT TRIM(BOTH ' ' FROM text_column)
+    FROM table;
+
+CONCAT()
+
+    Description: Combines two or more strings into one, useful for merging text data.
+    Keywords/Indicators: "concatenate text", "merge strings", "combine columns".
+    
+    Syntax:
+
+    SELECT CONCAT(string1, string2, ...)
+    FROM table;
+
+SPLIT_PART()
+
+    Description: Splits a string into parts based on a delimiter and returns the specified part, useful for parsing unstructured text.
+    Keywords/Indicators: "split text", "delimiter", "extract part of string".
+    
+    Syntax:
+
+    SELECT SPLIT_PART(text_column, delimiter, part_number)
+    FROM table;
+
+TO_TSVECTOR()
+
+    Description: Converts a text string into a tsvector, which is useful for full-text search. It tokenizes text and normalizes it for searching.
+    Keywords/Indicators: "text search", "tokenize text", "full-text search".
+   
+    Syntax:
+
+    SELECT TO_TSVECTOR('english', text_column)
+    FROM table;
+
+TO_TSQUERY()
+
+    Description: Converts a search query into a tsquery, which is used in full-text searches to match against tsvector columns.
+    Keywords/Indicators: "search query", "match text", "full-text search query".
+    
+    Syntax:
+
+    SELECT TO_TSQUERY('search_term')
+    FROM table;
+
+TS_RANK()
+
+    Description: Computes the relevance ranking of a tsquery search within a tsvector column, helping to order search results by relevance.
+    Keywords/Indicators: "relevance ranking", "rank search results", "text search ranking".
+    
+    Syntax:
+
+        SELECT TS_RANK(tsvector_column, TO_TSQUERY('search_term'))
+        FROM table;
+
+Key Points for Identifying the Correct Function
+
+    Exploring Categorical Data:
+        COUNT(): When counting frequencies or occurrences.
+        GROUP BY: When summarizing data by categories.
+        DISTINCT: When finding unique categories or values.
+        CASE: When categorizing data conditionally.
+        MODE(): When identifying the most common category.
+        PERCENTILE_CONT(): When analyzing the distribution of categorical data.
+        CROSSTAB(): When creating pivot tables or cross-tabulations.
+
+    Exploring Unstructured Text:
+        LOWER()/UPPER(): When standardizing text to lowercase/uppercase.
+        LENGTH(): When analyzing the length of text data.
+        SUBSTRING(): When extracting specific parts of a string.
+        POSITION(): When locating a substring within a string.
+        TRIM(): When cleaning up text by removing unwanted characters.
+        CONCAT(): When combining multiple text strings into one.
+        SPLIT_PART(): When parsing text based on a delimiter.
+        TO_TSVECTOR(): When preparing text for full-text search.
+        TO_TSQUERY(): When constructing a search query for full-text search.
+        TS_RANK(): When ranking search results by relevance.
