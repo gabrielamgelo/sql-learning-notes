@@ -1,0 +1,158 @@
+Working with Dates and Timestamps in PostgreSQL
+
+CURRENT_DATE
+        
+        Description: Returns the current date (without the time part).
+        Keywords/Indicators: "current date", "today's date", "current day".
+        
+        Syntax:
+
+    SELECT CURRENT_DATE;
+
+CURRENT_TIME
+
+    Description: Returns the current time (without the date part).
+    Keywords/Indicators: "current time", "current hour", "current minute".
+    
+    Syntax:
+
+    SELECT CURRENT_TIME;
+
+CURRENT_TIMESTAMP
+
+    Description: Returns the current date and time, including timezone information.
+    Keywords/Indicators: "current timestamp", "current date and time", "current datetime".
+    
+    Syntax:
+
+    SELECT CURRENT_TIMESTAMP;
+
+DATE_TRUNC()
+
+    Description: Truncates a timestamp or date to a specified precision (e.g., day, month, year).
+    Keywords/Indicators: "truncate date", "round down to", "reset time part".
+    
+    Syntax:
+
+    SELECT DATE_TRUNC('precision', timestamp_column)
+    FROM table;
+
+    Examples:
+        'day' for truncating to the start of the day.
+        'month' for truncating to the start of the month.
+
+EXTRACT()
+
+    Description: Extracts a specific part of a date or timestamp (e.g., year, month, day).
+    Keywords/Indicators: "extract part", "get year/month/day", "date component".
+    
+    Syntax:
+
+    SELECT EXTRACT(part FROM date_column)
+    FROM table;
+
+    Examples:
+        EXTRACT(YEAR FROM timestamp_column) for the year.
+        EXTRACT(MONTH FROM timestamp_column) for the month.
+
+DATE_PART()
+
+    Description: Similar to EXTRACT(), it returns a specific part of a date or timestamp.
+    Keywords/Indicators: "part of date", "date component", "date portion".
+    
+    Syntax:
+
+    SELECT DATE_PART('part', timestamp_column)
+    FROM table;
+
+    Examples:
+        'year' for extracting the year.
+        'month' for extracting the month.
+
+AGE()
+
+    Description: Calculates the difference between two timestamps or between a timestamp and the current time, returning the result as an interval.
+    Keywords/Indicators: "calculate age", "time difference", "interval".
+   
+    Syntax:
+
+    SELECT AGE(timestamp1, timestamp2)
+    FROM table;
+
+    Examples:
+        AGE(CURRENT_DATE, birth_date) for the age of a person.
+
+INTERVAL
+
+    Description: Represents a span of time, useful for adding or subtracting time from a timestamp or date.
+    Keywords/Indicators: "time span", "add/subtract time", "duration".
+    
+    Syntax:
+
+    SELECT timestamp_column + INTERVAL '1 day'
+    FROM table;
+
+    Examples:
+        INTERVAL '1 day' to add one day.
+        INTERVAL '1 month' to subtract one month.
+
+TO_DATE()
+
+    Description: Converts a string to a date type, given a specified format.
+    Keywords/Indicators: "convert string to date", "parse date", "string to date".
+    
+    Syntax:
+
+    SELECT TO_DATE('string_date', 'format')
+    FROM table;
+
+    Examples:
+        TO_DATE('2024-08-29', 'YYYY-MM-DD') for converting a string to a date.
+
+TO_TIMESTAMP()
+
+    Description: Converts a string to a timestamp type, given a specified format.
+    Keywords/Indicators: "convert string to timestamp", "parse timestamp", "string to timestamp".
+    
+    Syntax:
+
+    SELECT TO_TIMESTAMP('string_timestamp', 'format')
+    FROM table;
+
+    Examples:
+        TO_TIMESTAMP('2024-08-29 14:30:00', 'YYYY-MM-DD HH24:MI:SS') for converting a string to a timestamp.
+
+NOW()
+
+    Description: Returns the current date and time including timezone information, similar to CURRENT_TIMESTAMP.
+    Keywords/Indicators: "current datetime", "current timestamp", "now".
+    
+    Syntax:
+
+    SELECT NOW();
+
+DATE_PART()
+
+    Description: Returns a specified part of a date or timestamp as a number.
+    Keywords/Indicators: "extract part", "date component", "get specific date part".
+    
+    Syntax:
+
+        SELECT DATE_PART('part', date_column)
+        FROM table;
+
+        Examples:
+            DATE_PART('year', timestamp_column) for the year.
+            DATE_PART('month', timestamp_column) for the month.
+
+Key Points for Identifying the Correct Date/Time Function
+
+    CURRENT_DATE: Use to get the current date without time information.
+    CURRENT_TIME: Use to get the current time without date information.
+    CURRENT_TIMESTAMP / NOW(): Use to get the current date and time with timezone information.
+    DATE_TRUNC(): Use to truncate dates or timestamps to a specified precision, useful for grouping by time periods.
+    EXTRACT() / DATE_PART(): Use to get specific parts of a date or timestamp, such as year, month, or day.
+    AGE(): Use to calculate the difference between two dates or timestamps, often used to compute ages or durations.
+    INTERVAL: Use to represent and manipulate time spans or durations, for adding or subtracting time.
+    TO_DATE(): Use to convert a string to a date type with a specific format.
+    TO_TIMESTAMP(): Use to convert a string to a timestamp type with a specific format.
